@@ -1,0 +1,154 @@
+
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0px 0;
+    }
+
+    to {
+        background-position: 500px 250px;
+    }
+}
+
+@-webkit-keyframes animatedBackground {
+    from {
+        background-position: 0px 0;
+    }
+
+    to {
+        background-position: 500px 250px;
+    }
+}
+
+header {
+    position: fixed;
+    width: 100%;
+}
+
+main {
+    margin-top: 136px;
+    width: 100%;
+    display: inline-block;
+}
+
+body {
+    /*
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+     */
+    height: 100%;
+
+    background-color: black;
+    color: white;
+    font-family: "Monaco", monospace;
+
+    background-repeat: repeat;
+    background-image: url("../icons/tiles/rvklein-emsqpat--composite-pattern-14.svg");
+    background-size: 250px;
+    background-position: 0 0;
+
+    animation: animatedBackground 5s linear infinite;
+    -webkit-animation: animatedBackground 5s linear infinite;
+}
+
+h1 {
+    margin: 0 0 16px;
+    color: white;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    background-color: white;
+}
+a:hover {
+        color: black;
+        background-color: white;
+    animation: blink-background-animation 0.75s step-start infinite;
+    -webkit-animation: blink-background-animation 0.75s step-start infinite;
+}
+
+a:has(> img):not(:has(> span)) {
+    border: none;
+    background-color: transparent;
+}
+
+a:has(> img):not(:has(> span)):hover {
+    background-color: transparent;
+    opacity: 0.6;
+}
+
+@keyframes blink-background-animation {
+    50% {
+        color: white;
+        background-color: black;
+    }
+}
+
+@-webkit-keyframes blink-background-animation {
+    50% {
+        color: white;
+        background-color: black;
+    }
+}
+
+.container {
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.66);
+    margin: 16px;
+}
+
+.container  > * {
+    background-color: black;
+    width: fit-content;
+}
+
+.date {
+    color: red;
+}
+
+.rest-get {
+    color: lime;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.anim-blink {
+    animation: blink-animation 1s step-start infinite;
+    -webkit-animation: blink-animation 1s step-start infinite;
+}
+
+@keyframes blink-animation {
+    50% {
+        color: transparent;
+    }
+}
+
+@-webkit-keyframes blink-animation {
+    50% {
+        color: transparent;
+    }
+}
+
+.log-label {
+    color: yellow;
+}
+
+#host {
+    background-color: black;
+    color: white;
+}
+
+#host:hover {
+    background-color: white;
+    color: black;
+}
