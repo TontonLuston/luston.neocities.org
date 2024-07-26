@@ -1,22 +1,21 @@
 ---
 layout: default
-title: Category
-generator: [posts_category_index, pagination]
+title: Tag
+generator: [posts_tag_index, pagination]
 pagination:
-    provider: page.category_posts
+    provider: page.tag_posts
 ---
 
 {% block head_meta %}
-<link rel="alternate" type="application/atom+xml"
-    href="{{ site.url }}/blog/categories/{{ page.category|url_encode(true) }}.xml"
-    title="{{ site.title }} '{{ page.category }}' category feed" />
+<link rel="alternate" type="application/atom+xml" href="{{ site.url }}/logs/tags/{{ page.tag|url_encode(true) }}.xml"
+    title="{{ site.title }} '{{ page.tag }}' tag feed" />
 <meta name="robots" content="noindex, follow">
 {% endblock %}
 
-{% block title %}{{ page.title }} "{{ page.category }}"{% endblock %}
+{% block title %}{{ page.title }} "{{ page.tag }}" logs{% endblock %}
 {% block content %}
 {% set year = '0' %}
-<h2>"{{ page.category }}"  categorized logs</h2>
+<h2>"{{ page.tag }}" tagged logs</h2>
 {% for post in page.pagination.items %}
 {% set this_year %}{{ post.date | date("Y") }}{% endset %}
 {% if year != this_year %}
