@@ -1,6 +1,6 @@
 ---
 title: Github pipeline
-categories: [website, dev]
+categories: [website]
 tags: [dev, continuous_deployment]
 timestamp: "2024-07-27T00:29:03+00:00"
 ---
