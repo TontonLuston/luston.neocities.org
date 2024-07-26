@@ -143,12 +143,12 @@ a:has(> img):not(:has(> span)):hover {
     color: yellow;
 }
 
-#host {
+#path > a {
     background-color: black;
     color: white;
 }
 
-#host:hover {
+#path > a:hover {
     background-color: white;
     color: black;
 }
