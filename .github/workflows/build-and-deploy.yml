@@ -1,0 +1,61 @@
+name: Build and deploy
+on:
+ push:
+    # Pattern matched against refs/tags
+    tags:        
+      - '*'
+
+jobs:
+  composer_install:
+    runs-on: ubuntu-latest
+
+    env:
+      COMPOSER_VERSION: 1
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get composer cache directory
+        id: composer_config
+        uses: baschny/php-composer-action@v1
+        with:
+          composer_version: ${{ env.COMPOSER_VERSION }}
+          command: get_config
+
+      - name: Cache composer downloads
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer_config.outputs.composer_cache_dir }}
+          key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
+
+      - name: Run composer install
+        uses: baschny/php-composer-action@v1
+        with:
+          composer_version: ${{ env.COMPOSER_VERSION }}
+          command: install
+          #github_oauth: ${{ secret.GITHUB_OAUTH }}
+          
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get composer cache directory
+        id: composer_config
+        uses: baschny/php-composer-action@v1
+        with:
+          composer_version: ${{ env.COMPOSER_VERSION }}
+          command: get_config
+      - name: Generate with Scuplpin
+        run: vendor/bin/sculpin generate --env=prod
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to neocities
+        uses: bcomnes/deploy-to-neocities@v2
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: true
+          dist_dir: output_prod
+  
