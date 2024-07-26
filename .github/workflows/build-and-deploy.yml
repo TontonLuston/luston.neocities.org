@@ -39,6 +39,7 @@ jobs:
           #github_oauth: ${{ secret.GITHUB_OAUTH }}
           
   generate:
+    needs: composer_install
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -52,6 +53,7 @@ jobs:
       - name: Generate with Scuplpin
         run: vendor/bin/sculpin generate --env=prod
   deploy:
+    needs: generate
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to neocities
