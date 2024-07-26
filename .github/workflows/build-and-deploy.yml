@@ -42,14 +42,6 @@ jobs:
     needs: composer_install
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Get composer cache directory
-        id: composer_config
-        uses: baschny/php-composer-action@v1
-        with:
-          composer_version: ${{ env.COMPOSER_VERSION }}
-          command: get_config
       - name: Generate with Scuplpin
         run: vendor/bin/sculpin generate --env=prod
   deploy:
