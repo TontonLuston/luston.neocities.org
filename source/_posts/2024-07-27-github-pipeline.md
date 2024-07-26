@@ -2,7 +2,7 @@
 title: Github pipeline
 categories: [website, dev]
 tags: [dev, continuous_deployment]
-timestamp: "2024-07-26T16:24:47+00:00"
+timestamp: "2024-07-27T00:29:03+00:00"
 ---
 
 I've set up an automated github pipeline!
