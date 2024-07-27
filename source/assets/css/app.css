@@ -132,7 +132,7 @@ hr {
     margin: 16px;
 }
 
-.container > *:not(hr) {
+.container > *:not(hr, #disqus_thread) {
     background-color: black;
     width: fit-content;
 }
