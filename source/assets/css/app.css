@@ -20,6 +20,27 @@
     }
 }
 
+body {
+    /*
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+     */
+    height: 100%;
+
+    color: white;
+    background-color: black;
+    font-family: "Monaco", monospace;
+/*
+    background-repeat: repeat;
+    background-image: url("../icons/tiles/rvklein-emsqpat--composite-pattern-14.svg");
+    background-size: 250px;
+    background-position: 0 0;
+
+    animation: animatedBackground 5s linear infinite;
+    -webkit-animation: animatedBackground 5s linear infinite; */
+}
+
 header {
     position: fixed;
     width: 100%;
@@ -29,27 +50,6 @@ main {
     margin-top: 136px;
     width: 100%;
     display: inline-block;
-}
-
-body {
-    /*
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-     */
-    height: 100%;
-
-    background-color: black;
-    color: white;
-    font-family: "Monaco", monospace;
-
-    background-repeat: repeat;
-    background-image: url("../icons/tiles/rvklein-emsqpat--composite-pattern-14.svg");
-    background-size: 250px;
-    background-position: 0 0;
-
-    animation: animatedBackground 5s linear infinite;
-    -webkit-animation: animatedBackground 5s linear infinite;
 }
 
 h1 {
@@ -70,6 +70,7 @@ a {
     text-decoration: none;
     background-color: white;
 }
+
 a:hover {
         color: black;
         background-color: white;
@@ -99,6 +100,17 @@ a:has(> img):not(:has(> span)):hover {
         color: white;
         background-color: black;
     }
+}
+
+#background {
+    position: fixed;
+    z-index: -1;
+}
+
+#content {
+    /* position: absolute; */
+
+    width: 100%;
 }
 
 .container {
