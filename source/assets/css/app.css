@@ -52,6 +52,10 @@ main {
     display: inline-block;
 }
 
+main > .container > * {
+    max-width: 1000px;
+}
+
 h1 {
     margin: 0 0 16px;
     color: white;
@@ -102,6 +106,15 @@ a:has(> img):not(:has(> span)):hover {
     }
 }
 
+img {
+    max-width : 100%;
+    height : auto;
+}
+
+hr {
+    border-top: 2px dotted white;
+}
+
 #background {
     position: fixed;
     z-index: -1;
@@ -119,7 +132,7 @@ a:has(> img):not(:has(> span)):hover {
     margin: 16px;
 }
 
-.container  > * {
+.container > *:not(hr) {
     background-color: black;
     width: fit-content;
 }

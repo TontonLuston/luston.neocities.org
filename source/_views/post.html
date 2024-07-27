@@ -1,57 +1,59 @@
-{% extends "default" %}
-
-{% block head_meta %}
-<meta name="robots" content="index, follow">
-{% endblock %}
-
-{% block content_wrapper %}
+{% extends "default" %} {% block head_meta %}
+<meta name="robots" content="index, follow" />
+{% endblock %} {% block content_wrapper %}
 <article class="container">
     <p class="date">{{ page.timestamp ?? page.date | date("c") }}</p>
     <h2>
         <p>{{ page.title }} <small class="log-label">log</small></p>
     </h2>
-
     {% if page.categories %}
     <p class="categories">
-        Categories:
-        {% for category in page.categories %}
-        <a href="{{ site.url }}/logs/categories/{{ category|url_encode(true) }}">{{ category }}</a>{% if not loop.last
-        %} {% endif %}
-        {% endfor %}
+        Categories: {% for category in page.categories %}
+        <a href="{{ site.url }}/logs/categories/{{ category|url_encode(true) }}"
+            >{{ category }}</a
+        >{% if not loop.last %} {% endif %} {% endfor %}
     </p>
-    {% endif %}
-
-    {% if page.tags %}
+    {% endif %} {% if page.tags %}
     <p class="tags">
-        Tags:
-        {% for tag in page.tags %}
-        <a href="{{ site.url }}/logs/tags/{{ tag|url_encode(true) }}">{{ tag }}</a>{% if not loop.last %} {% endif %}
-        {% endfor %}
+        Tags: {% for tag in page.tags %}
+        <a href="{{ site.url }}/logs/tags/{{ tag|url_encode(true) }}"
+            >{{ tag }}</a
+        >{% if not loop.last %} {% endif %} {% endfor %}
     </p>
     {% endif %}
-
     <div>
+        <hr />
         {{ page.blocks.content|raw }}
     </div>
 
     {% if page.previous_post or page.next_post %}
     <nav class="article">
         {% if page.previous_post %}
-        <span>&lt;&lt; Previous: <a class="previous" href="{{ page.previous_post.url }}"
-                title="{{ page.previous_post.title }}"><span class="title">{{ page.previous_post.title }}</span></a>
+        <span
+            >&lt;&lt; Previous:
+            <a
+                class="previous"
+                href="{{ page.previous_post.url }}"
+                title="{{ page.previous_post.title }}"
+                ><span class="title">{{ page.previous_post.title }}</span></a
+            >
         </span>
-        {% endif %}
-        {% if page.previous_post and page.next_post %}
-        ||
-        {% endif %}
-        {% if page.next_post %}
-        <span>Next: <a class="next" href="{{ page.next_post.url }}" title="{{ page.next_post.title }}"><span
-                    class="title">{{ page.next_post.title }}</span></a> &gt;&gt;</span>
+        {% endif %} {% if page.previous_post and page.next_post %} || {% endif
+        %} {% if page.next_post %}
+        <span
+            >Next:
+            <a
+                class="next"
+                href="{{ page.next_post.url }}"
+                title="{{ page.next_post.title }}"
+                ><span class="title">{{ page.next_post.title }}</span></a
+            >
+            &gt;&gt;</span
+        >
         {% endif %}
     </nav>
     {% endif %}
 </article>
-
 
 {% if site.disqus.shortname and site.disqus.shortname != '' %}
 <div id="disqus_thread"></div>
@@ -77,9 +79,10 @@
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
-<noscript>Please enable JavaScript to view the
-    <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+<noscript
+    >Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript" rel="nofollow"
+        >comments powered by Disqus.</a
+    >
 </noscript>
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}
