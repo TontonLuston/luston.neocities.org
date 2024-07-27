@@ -5,5 +5,5 @@ title: Luston's dope website
 subtitle: Hey! check out this cool website !
 url: https://luston.neocities.org
 # Insert your disqus shortname
-#disqus:
-#    shortname:
+disqus:
+    shortname: luston-neocities-org
