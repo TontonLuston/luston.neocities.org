@@ -39,6 +39,14 @@ jobs:
           #github_oauth: ${{ secret.GITHUB_OAUTH }}
       - name: Generate with Scuplpin
         run: vendor/bin/sculpin generate --env=prod
+      - name: Check output files size
+        uses: freenet-actions/check-file-size@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: output_prod
+          max_size: 250
+          post_comment: true
+          fail_on_find: true
       - name: Deploy to neocities
         uses: bcomnes/deploy-to-neocities@v2
         with:
