@@ -42,7 +42,7 @@ jobs:
                   command: install
                   #github_oauth: ${{ secret.GITHUB_OAUTH }}
             - name: Generate with Scuplpin
-              run: ./generate_prod.sh ${{ steps.get_version.outputs.VERSION }}
+              run: sudo ./generate_prod.sh ${{ steps.get_version.outputs.VERSION }}
             - name: Check output files size
               uses: freenet-actions/check-file-size@v1
               with:
