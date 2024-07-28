@@ -8,7 +8,7 @@ timestamp: "2024-07-28T12:31:00+00:00"
 ---
 I have bought a 64Go DDR3 RAM stick for my home server.
 
-![Image of the ram I bought](http://public.luston.fr/IMG_20240728_122243.jpg)
+![Image of the ram I bought](https://drive.francois-banitz.fr/s/A8QERptRHP2gJDT/preview)
 
 It was really cheap, like around 25€.
 
