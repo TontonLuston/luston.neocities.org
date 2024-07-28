@@ -1,56 +1,59 @@
 name: Build and deploy
 on:
- push:
-    # Pattern matched against refs/tags
-    tags:        
-      - '*'
+    push:
+        # Pattern matched against refs/tags
+        tags:
+            - "*"
 
- # Allows you to run this workflow manually from the Actions tab
- workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+    build-and-deploy:
+        runs-on: ubuntu-latest
 
-    env:
-      COMPOSER_VERSION: 1
+        env:
+            COMPOSER_VERSION: 1
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        steps:
+            - name: Get the version
+              id: get_version
+              run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
-      - name: Get composer cache directory
-        id: composer_config
-        uses: baschny/php-composer-action@v1
-        with:
-          composer_version: ${{ env.COMPOSER_VERSION }}
-          command: get_config
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
-      - name: Cache composer downloads
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composer_config.outputs.composer_cache_dir }}
-          key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
+            - name: Get composer cache directory
+              id: composer_config
+              uses: baschny/php-composer-action@v1
+              with:
+                  composer_version: ${{ env.COMPOSER_VERSION }}
+                  command: get_config
 
-      - name: Run composer install
-        uses: baschny/php-composer-action@v1
-        with:
-          composer_version: ${{ env.COMPOSER_VERSION }}
-          command: install
-          #github_oauth: ${{ secret.GITHUB_OAUTH }}
-      - name: Generate with Scuplpin
-        run: vendor/bin/sculpin generate --env=prod
-      - name: Check output files size
-        uses: freenet-actions/check-file-size@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          directory: output_prod
-          max_size: 250
-          post_comment: true
-          fail_on_find: true
-      - name: Deploy to neocities
-        uses: bcomnes/deploy-to-neocities@v2
-        with:
-          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-          cleanup: true
-          dist_dir: output_prod
-  
+            - name: Cache composer downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer_config.outputs.composer_cache_dir }}
+                  key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
+
+            - name: Run composer install
+              uses: baschny/php-composer-action@v1
+              with:
+                  composer_version: ${{ env.COMPOSER_VERSION }}
+                  command: install
+                  #github_oauth: ${{ secret.GITHUB_OAUTH }}
+            - name: Generate with Scuplpin
+              run: ./generate_prod.sh ${{ steps.get_version.outputs.VERSION }}
+            - name: Check output files size
+              uses: freenet-actions/check-file-size@v1
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  directory: output_prod
+                  max_size: 250
+                  post_comment: true
+                  fail_on_find: true
+            - name: Deploy to neocities
+              uses: bcomnes/deploy-to-neocities@v2
+              with:
+                  api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+                  cleanup: true
+                  dist_dir: output_prod

@@ -4,3 +4,6 @@ subtitle: Hey! check out this cool website !
 url: http://localhost:5500
 disqus:
     shortname: luston-neocities-org
+
+version:
+    dev
