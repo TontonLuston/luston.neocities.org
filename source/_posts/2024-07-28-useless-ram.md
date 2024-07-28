@@ -4,7 +4,7 @@ categories:
   - irl
 tags:
   - hardware
-timestamp: 2024-07-28T12:31:00
+timestamp: "2024-07-28T12:31:00+00:00"
 ---
 I have bought a 64Go DDR3 RAM stick for my home server.
 
