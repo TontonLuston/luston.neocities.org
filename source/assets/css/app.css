@@ -1,5 +1,4 @@
 
-
 @keyframes animatedBackground {
     from {
         background-position: 0px 0;
@@ -21,12 +20,11 @@
 }
 
 body {
+    display:grid;
     /*
-    display: flex;
     justify-content: center;
     flex-wrap: wrap;
      */
-    height: 100%;
 
     color: white;
     background-color: black;
@@ -118,6 +116,7 @@ hr {
 #background {
     position: fixed;
     z-index: -1;
+    justify-self: center;
 }
 
 #content {
