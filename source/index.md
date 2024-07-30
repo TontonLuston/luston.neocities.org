@@ -5,6 +5,12 @@ generator: pagination
 pagination:
 max_per_page: 3
 ---
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  if (navigator.userAgent.includes('Screenjesus')) {
+    window.location.replace("/assets/icons/profile_pic.jpg");
+  }
+</script>
 
 # Welcome to my website!
 ```
