@@ -42,12 +42,14 @@ object.rotation.x = 15;
 
 gsap.registerPlugin(ScrollTrigger);
 
+var scrollProgress = 0;
+
 ScrollTrigger.create({
     trigger: "#trigger",
     start: "top top",
     end: "bottom top",
     scrub: true,
-    onUpdate: (self) => rotation += self.progress,
+    onUpdate: (self) => scrollProgress = self.progress * 5,
 });
 
 
@@ -58,7 +60,7 @@ function animate() {
 
     // object.rotation.x += 0.0050;
     rotation += 0.0025
-    object.rotation.y = rotation;
+    object.rotation.y = rotation + scrollProgress;
 	renderer.render( scene, camera );
 }
 renderer.setAnimationLoop( animate );
