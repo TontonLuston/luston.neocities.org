@@ -37,18 +37,18 @@ jobs:
                   composer_version: ${{ env.COMPOSER_VERSION }}
                   command: get_config
 
+            - name: Cache composer downloads
+              uses: actions/cache@v2
+              with:
+                  path: ${{ steps.composer_config.outputs.composer_cache_dir }}
+                  key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
+                  
             - name: Run composer install
               uses: baschny/php-composer-action@v1
               with:
                   composer_version: ${{ env.COMPOSER_VERSION }}
                   command: install
                   #github_oauth: ${{ secret.GITHUB_OAUTH }}
-
-            - name: Cache composer downloads
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer_config.outputs.composer_cache_dir }}
-                  key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
 
             - name: Generate with Scuplpin
               run: vendor/bin/sculpin generate --env=prod
