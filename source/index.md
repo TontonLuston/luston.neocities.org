@@ -5,6 +5,10 @@ generator: pagination
 pagination:
 max_per_page: 3
 ---
+
+{% block title %}{{ site.title }}{% endblock %}
+{% block content %}
+
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   if (navigator.userAgent.includes('Screenjesus')) {
