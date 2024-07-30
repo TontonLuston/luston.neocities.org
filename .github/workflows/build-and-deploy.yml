@@ -29,13 +29,6 @@ jobs:
                   propertyPath: "version"
                   value: ${{ steps.get_version.outputs.VERSION }}
                   commitChange: false
-
-            - name: Get composer cache directory
-              id: composer_config
-              uses: baschny/php-composer-action@v1
-              with:
-                  composer_version: ${{ env.COMPOSER_VERSION }}
-                  command: get_config
                   
             - name: Cache Vendor
               id: cache-vendor
