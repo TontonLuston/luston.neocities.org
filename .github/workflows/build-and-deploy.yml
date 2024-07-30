@@ -29,26 +29,21 @@ jobs:
                   propertyPath: "version"
                   value: ${{ steps.get_version.outputs.VERSION }}
                   commitChange: false
-
-            - name: Get composer cache directory
-              id: composer_config
-              uses: baschny/php-composer-action@v1
+                  
+            - name: Cache Vendor
+              id: cache-vendor
+              uses: actions/cache@v3
               with:
-                  composer_version: ${{ env.COMPOSER_VERSION }}
-                  command: get_config
-
+                path: vendor
+                key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+                      
             - name: Run composer install
+              if: steps.cache-vendor.outputs.cache-hit != 'true' # Skip if cache hit
               uses: baschny/php-composer-action@v1
               with:
                   composer_version: ${{ env.COMPOSER_VERSION }}
                   command: install
                   #github_oauth: ${{ secret.GITHUB_OAUTH }}
-
-            - name: Cache composer downloads
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer_config.outputs.composer_cache_dir }}
-                  key: composer-v${{ steps.composer_config.outputs.composer_major_version }}
 
             - name: Generate with Scuplpin
               run: vendor/bin/sculpin generate --env=prod
@@ -60,6 +55,13 @@ jobs:
                   max_size: 250
                   post_comment: true
                   fail_on_find: true
+                  
+            - name: Archive production artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: prod
+                path: output_prod
+                
             - name: Deploy to neocities
               uses: bcomnes/deploy-to-neocities@v2
               with:
