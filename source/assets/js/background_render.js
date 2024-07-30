@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
 function getSize() {
-    if (window.innerHeight < window.innerWidth) return window.innerHeight;
-    return window.innerWidth;
+    if (window.innerHeight < window.innerWidth) return window.innerHeight - 32;
+    return window.innerWidth - 32;
 }
 
 var viewSize = getSize();

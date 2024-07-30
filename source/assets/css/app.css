@@ -20,7 +20,7 @@
 }
 
 body {
-    display:grid;
+    display: grid;
     /*
     justify-content: center;
     flex-wrap: wrap;
@@ -113,10 +113,18 @@ hr {
     border-top: 2px dotted white;
 }
 
+canvas {
+    align-self: center;
+}
+
 #background {
+    display: grid;
     position: fixed;
     z-index: -1;
     justify-self: center;
+    align-content: center;
+    height: 100vh;
+    margin: 16;
 }
 
 #content {
