@@ -60,6 +60,11 @@ jobs:
                   max_size: 250
                   post_comment: true
                   fail_on_find: true
+            - name: Archive production artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: prod
+                path: output_prod
             - name: Deploy to neocities
               uses: bcomnes/deploy-to-neocities@v2
               with:
