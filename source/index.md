@@ -10,10 +10,11 @@ max_per_page: 3
 {% block content %}
 
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  if (navigator.userAgent.includes('Screenjesus')) {
-    window.location.replace("/assets/icons/profile_pic.jpg");
-  }
+    // Sets the profile pic from Gravatar to Neocities
+    const emailSha256hash = '6f0130b5bd2211adc2f1e91b85667b83e6f074e9a94a486a81a223255f48ee09';
+    if (navigator.userAgent.includes('Screenjesus')) {
+        document.getElementsByTagName('body')[0].innerHTML = `<img style="height:100vh; width:100vw; object-fit: contain;" src="https://gravatar.com/avatar/${emailSha256hash}"/>`;
+    }
 </script>
 
 # Welcome to my website!
@@ -67,3 +68,4 @@ If you want to know how to do one, check out this very good tutorial (BlockBench
 
 
 [![](assets/icons/neocities/neocities.png)](https://neocities.org/)
+{% endblock %}
