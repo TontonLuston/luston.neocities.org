@@ -82,4 +82,5 @@ function animate() {
     object.rotation.y = rotation + scrollProgress;
 	renderer.render( scene, camera );
 }
+
 renderer.setAnimationLoop( animate );

@@ -46,19 +46,20 @@ header {
 }
 
 main {
-    max-width: 100vw;
+    margin-right: 15vw; /* Same as the width of the sidebar */
     margin-top: 136px;
-    width: 100%;
+    width: 85vw;
     display: inline-block;
 }
 
-main > .container > * {
+main > .element-container > * {
     max-width: 1000px;
 }
 
 h1 {
     margin: 0 0 16px;
     color: white;
+    font-size: xx-large;
 }
 
 h2 {
@@ -132,16 +133,18 @@ canvas {
 #content {
     /* position: absolute; */
 
-    width: 100%;
+    max-width: 96vw;
 }
 
-.container {
+.element-container {
     padding: 16px;
-    background-color: rgba(0, 0, 0, 0.66);
+    background-color:
+     rgba(0, 0, 0, 0.66);
+    /* border: solid red; */
     margin: 16px;
 }
 
-.container > *:not(hr, #disqus_thread) {
+.element-container > *:not(hr, #disqus_thread) {
     background-color: black;
     width: fit-content;
 }

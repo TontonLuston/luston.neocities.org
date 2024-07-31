@@ -1,7 +1,7 @@
 {% extends "default" %} {% block head_meta %}
 <meta name="robots" content="index, follow" />
 {% endblock %} {% block content_wrapper %}
-<article class="container">
+<article class="element-container">
     <p class="date">{{ page.timestamp ?? page.date | date("c") }}</p>
     <h2>
         <p>{{ page.title }} <small class="log-label">log</small></p>
@@ -54,7 +54,7 @@
     </nav>
     {% endif %} {% if site.disqus.shortname and site.disqus.shortname != '' %}
 </article>
-<div class="container">
+<div class="element-container">
     <div id="disqus_thread"></div>
     <script>
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

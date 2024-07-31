@@ -6,7 +6,7 @@ on:
             - "*"
 
     # Allows you to run this workflow manually from the Actions tab
-    # workflow_dispatch:
+    workflow_dispatch:
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
@@ -18,25 +18,33 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
+            - name: Get datetime
+              uses: benzine-framework/action-get-datetime@main
+              id: get-datetime
+
             - name: Get the version
               id: get_version
-              run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+              uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
             - name: Update sculpin_site_prod.yml
               uses: fjogeleit/yaml-update-action@main
               with:
                   valueFile: "app/config/sculpin_site_prod.yml"
-                  propertyPath: "version"
-                  value: ${{ steps.get_version.outputs.VERSION }}
+                  changes: |
+                      {
+                        "version" : "${{ steps.get_version.outputs.tag }}",
+                        "version_timestamp" : "${{ steps.get_version.outputs.tag }}",
+                        "webmaster.birth" : "${{ secrets.WEBMASTER_BIRTDAY }}"
+                      }
                   commitChange: false
-                  
+
             - name: Cache Vendor
               id: cache-vendor
               uses: actions/cache@v3
               with:
-                path: vendor
-                key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
-                      
+                  path: vendor
+                  key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+
             - name: Run composer install
               if: steps.cache-vendor.outputs.cache-hit != 'true' # Skip if cache hit
               uses: baschny/php-composer-action@v1
@@ -55,13 +63,13 @@ jobs:
                   max_size: 250
                   post_comment: true
                   fail_on_find: true
-                  
+
             - name: Archive production artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: luston.neocities.org-${{ steps.get_version.outputs.VERSION }}
-                path: output_prod
-                
+                  name: luston.neocities.org-${{ steps.get_version.outputs.tag }}
+                  path: output_prod
+
             - name: Deploy to neocities
               uses: bcomnes/deploy-to-neocities@v2
               with:
