@@ -33,7 +33,7 @@ jobs:
                   changes: |
                       {
                         "version" : "${{ steps.get_version.outputs.tag }}",
-                        "version_timestamp" : "${{ steps.get_version.outputs.tag }}",
+                        "version_timestamp" : "${{ steps.get-datetime.outputs.atom }}",
                         "webmaster.birth" : "${{ secrets.WEBMASTER_BIRTDAY }}"
                       }
                   commitChange: false
