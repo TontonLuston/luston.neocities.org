@@ -24,6 +24,10 @@
         ],
         "sculpin-watch": [
             "Composer\\Config::disableProcessTimeout",
+            "sculpin generate --watch"
+        ],
+        "sculpin-watch-server": [
+            "Composer\\Config::disableProcessTimeout",
             "sculpin generate --watch --server"
         ],
         "yarn-watch": [
