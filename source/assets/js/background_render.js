@@ -33,7 +33,26 @@ updateViewSize();
 
 jQuery('#background').html(renderer.domElement);
 
-const geometry = new THREE.CylinderGeometry( 1, 0.8, 5, 8 );
+const queryString = window.location.search;
+
+const urlParams = new URLSearchParams(queryString);
+
+var objectQuery = urlParams.get('object')
+
+var geometry= new THREE.CylinderGeometry(1, 0.8, 5, 8 );
+
+if (objectQuery == 'box' || objectQuery == 'cube' ) {
+    geometry = new THREE.BoxGeometry(2, 2, 2);
+} else if (objectQuery == 'torus' || objectQuery == 'donut') {
+    geometry = new THREE.TorusGeometry(1, 0.5, 8, 8);
+} else if (objectQuery == 'cone' || objectQuery == 'hat') {
+    geometry = new THREE.ConeGeometry(1.5, 2, 8);
+} else if (objectQuery == 'ring') {
+    geometry = new THREE.RingGeometry(1.3, 1.5, 8 );
+} else if (objectQuery == 'ball') {
+    geometry = new THREE.SphereGeometry(1.5, 8, 8)
+}
+
 const material = new THREE.MeshBasicMaterial( { wireframe: true } );
 const object = new THREE.Mesh( geometry, material );
 scene.add( object );
