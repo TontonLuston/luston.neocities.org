@@ -1,78 +1,85 @@
 name: Build and deploy
 on:
-    push:
-        # Pattern matched against refs/tags
-        tags:
-            - "*"
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - "*"
 
-    # Allows you to run this workflow manually from the Actions tab
-    workflow_dispatch:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-        env:
-            COMPOSER_VERSION: 1
+    env:
+      COMPOSER_VERSION: 1
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-            - name: Get datetime
-              uses: benzine-framework/action-get-datetime@main
-              id: get-datetime
+      - name: Get datetime
+        uses: benzine-framework/action-get-datetime@main
+        id: get-datetime
 
-            - name: Get the version
-              id: get_version
-              uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      - name: Get the version
+        id: get_version
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
-            - name: Update sculpin_site_prod.yml
-              uses: fjogeleit/yaml-update-action@main
-              with:
-                  valueFile: "app/config/sculpin_site_prod.yml"
-                  changes: |
-                      {
-                        "version" : "${{ steps.get_version.outputs.tag }}",
-                        "version_timestamp" : "${{ steps.get-datetime.outputs.atom }}",
-                        "webmaster.birth" : "${{ secrets.WEBMASTER_BIRTDAY }}"
-                      }
-                  commitChange: false
+      - name: Update sculpin_site_prod.yml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: "app/config/sculpin_site_prod.yml"
+          changes: |
+            {
+              "version" : "${{ steps.get_version.outputs.tag }}",
+              "version_timestamp" : "${{ steps.get-datetime.outputs.atom }}",
+              "webmaster.birth" : "${{ secrets.WEBMASTER_BIRTDAY }}"
+            }
+          commitChange: false
 
-            - name: Cache Vendor
-              id: cache-vendor
-              uses: actions/cache@v3
-              with:
-                  path: vendor
-                  key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+      - name: Cache Vendor
+        id: cache-vendor
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
 
-            - name: Run composer install
-              if: steps.cache-vendor.outputs.cache-hit != 'true' # Skip if cache hit
-              uses: baschny/php-composer-action@v1
-              with:
-                  composer_version: ${{ env.COMPOSER_VERSION }}
-                  command: install
-                  #github_oauth: ${{ secret.GITHUB_OAUTH }}
+      - name: Cache Node Modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
 
-            - name: Generate with Scuplpin
-              run: vendor/bin/sculpin generate --env=prod
-            - name: Check output files size
-              uses: freenet-actions/check-file-size@v1
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  directory: output_prod
-                  max_size: 250
-                  post_comment: true
-                  fail_on_find: true
+      - name: Run composer install
+        if: steps.cache-vendor.outputs.cache-hit != 'true' # Skip if cache hit
+        uses: baschny/php-composer-action@v1
+        with:
+          composer_version: ${{ env.COMPOSER_VERSION }}
+          command: install
+          #github_oauth: ${{ secret.GITHUB_OAUTH }}
 
-            - name: Archive production artifacts
-              uses: actions/upload-artifact@v4
-              with:
-                  name: luston.neocities.org-${{ steps.get_version.outputs.tag }}
-                  path: output_prod
+      - name: Generate with Scuplpin
+        run: vendor/bin/sculpin generate --env=prod
+      - name: Check output files size
+        uses: freenet-actions/check-file-size@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          directory: output_prod
+          max_size: 250
+          post_comment: true
+          fail_on_find: true
 
-            - name: Deploy to neocities
-              uses: bcomnes/deploy-to-neocities@v2
-              with:
-                  api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
-                  cleanup: true
-                  dist_dir: output_prod
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: luston.neocities.org-${{ steps.get_version.outputs.tag }}
+          path: output_prod
+
+      - name: Deploy to neocities
+        uses: bcomnes/deploy-to-neocities@v2
+        with:
+          api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
+          cleanup: true
+          dist_dir: output_prod
