@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tera Demo - {{ title }}</title>
+  </head>
+  <body>
+      <h1>Tera Demo - {{ title }}</h1>
+      <footer>
+        <a href="/">Home</a>
+      </footer>
+  </body>
+</html>
