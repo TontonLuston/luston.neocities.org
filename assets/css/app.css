@@ -1,0 +1,191 @@
+/* God I hate CSS */
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0px 0;
+    }
+
+    to {
+        background-position: 500px 250px;
+    }
+}
+
+@-webkit-keyframes animatedBackground {
+    from {
+        background-position: 0px 0;
+    }
+
+    to {
+        background-position: 500px 250px;
+    }
+}
+
+body {
+    display: grid;
+    /*
+    justify-content: center;
+    flex-wrap: wrap;
+     */
+
+    color: white;
+    background-color: black;
+    font-family: "Monaco", monospace;
+/*
+    background-repeat: repeat;
+    background-image: url("../icons/tiles/rvklein-emsqpat--composite-pattern-14.svg");
+    background-size: 250px;
+    background-position: 0 0;
+
+    animation: animatedBackground 5s linear infinite;
+    -webkit-animation: animatedBackground 5s linear infinite; */
+}
+
+header {
+    position: fixed;
+    width: 100%;
+}
+
+main {
+    margin-right: 15vw; /* Same as the width of the sidebar */
+    margin-top: 136px;
+    width: 85vw;
+    display: inline-block;
+}
+
+main > .element-container > * {
+    max-width: 1000px;
+}
+
+h1 {
+    margin: 0 0 16px;
+    color: white;
+    font-size: xx-large;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    background-color: white;
+}
+
+a:hover {
+        color: black;
+        background-color: white;
+    animation: blink-background-animation 0.75s step-start infinite;
+    -webkit-animation: blink-background-animation 0.75s step-start infinite;
+}
+
+a:has(> img):not(:has(> span)) {
+    border: none;
+    background-color: transparent;
+}
+
+a:has(> img):not(:has(> span)):hover {
+    background-color: transparent;
+    opacity: 0.6;
+}
+
+@keyframes blink-background-animation {
+    50% {
+        color: white;
+        background-color: black;
+    }
+}
+
+@-webkit-keyframes blink-background-animation {
+    50% {
+        color: white;
+        background-color: black;
+    }
+}
+
+img {
+    max-width : 100%;
+    height : auto;
+}
+
+hr {
+    border-top: 2px dotted white;
+}
+
+canvas {
+    align-self: center;
+}
+
+#background {
+    display: grid;
+    position: fixed;
+    z-index: -1;
+    justify-self: center;
+    align-content: center;
+    height: 100vh;
+    margin: 16;
+}
+
+#content {
+    /* position: absolute; */
+
+    max-width: 96vw;
+}
+
+.element-container {
+    padding: 16px;
+    background-color:
+     rgba(0, 0, 0, 0.66);
+    /* border: solid red; */
+    margin: 16px;
+}
+
+.element-container > *:not(hr, #disqus_thread) {
+    background-color: black;
+    width: fit-content;
+}
+
+.date {
+    color: red;
+}
+
+.rest-get {
+    color: lime;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.anim-blink {
+    animation: blink-animation 1s step-start infinite;
+    -webkit-animation: blink-animation 1s step-start infinite;
+}
+
+@keyframes blink-animation {
+    50% {
+        color: transparent;
+    }
+}
+
+@-webkit-keyframes blink-animation {
+    50% {
+        color: transparent;
+    }
+}
+
+.log-label {
+    color: yellow;
+}
+
+#path > a {
+    background-color: black;
+    color: white;
+}
+
+#path > a:hover {
+    background-color: white;
+    color: black;
+}
