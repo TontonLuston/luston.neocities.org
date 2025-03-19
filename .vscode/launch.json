@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppvsdbg",
+            "request": "launch",
+            "name": "Debug",
+            "program": "cargo",
+            "args": [
+                "run",
+                "${workspaceFolder}/<executable file>"
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
