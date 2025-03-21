@@ -1,0 +1,7 @@
+{% macro sidebar(content) %}
+<div class="sidebar col-xl-3">
+    <div class="element-container position-sticky">        
+        {{ content | safe }}
+    </div>
+</div>
+{% endmacro sidebar %}
