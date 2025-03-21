@@ -3,7 +3,7 @@
     <head lang="en">
         <title>
             {% block title -%}
-            {{ page.title }} &mdash;{# {{ site.title }} #} luston.neocities.org
+            {{ page.title }} &mdash; {{ site.title }}
             {%- endblock %}
         </title>
         <meta charset="utf-8" />
@@ -32,7 +32,7 @@
             rel="alternate"
             type="application/atom+xml"
             href="/atom.xml"
-            title="luston.neocities.org activity feed"
+            title="{{ site.title }} activity feed"
         />
         {% block head_styles %} {% endblock %} {% block head_scripts %} {%
         endblock %}
@@ -59,57 +59,50 @@
                     <h1>
                         &gt;<span class="rest-get">Get </span
                         ><span id="path"
-                            ><a href="#" id="host"
-                                >luston.neocities.org</a
+                            ><a href="http://{{ page.host }}" id="host"
+                                >{{ site.title }}</a
                             >
-                            {# {%- block route %} {%- set routeSegments = [] -%}
-                            {%- for routeSegment in page.url |
-                                replace(from='.',to='') | split(pat='/') -%} 
-                            {%- set routeSegments =
-                            routeSegments|concat(with=["#{ routeSegment }"]) -%}
-                            <a
-                                href="#"
-                                >{{ routeSegment }}</a
-                            >
-                            {%- if not loop.last %}<span>/</span>{% endif -%} {%
-                            endfor -%} {% endblock -%}  #}
+                            {%- block route %} {%- set routeSegments = [] -%}
+                            {%- for routeSegment in page.url | replace(from='.',to='') | split(pat='/') -%} 
+                            {%- set_global  routeSegments = routeSegments|concat(with=[routeSegment]) -%}
+                            <a href="http://{{ page.host }}{{ routeSegments | join(sep='/') }}">{{ routeSegment }}</a>
+                            {%- if not loop.last %}<span>/</span>{% endif -%} 
+                            {%- endfor -%} {% endblock -%} 
                         </span><span class="anim-blink">_</span>
                     </h1>
                     <nav
                         class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
                     >
                         <span>
-                            <a class="nav-link" href="#">Home</a>
-                            <a class="nav-link" href="#"
+                            <a class="nav-link" href="http://{{ page.host }}/">Home</a>
+                            <a class="nav-link" href="http://{{ page.host }}/logs"
                                 >Logs (Blog)</a
                             >
                             <a
                                 class="nav-link"
-                                href="#"
+                                href="http://{{ page.host }}/logs/categories"
                                 >Categories</a
                             >
 
-                            <a class="nav-link" href="#"
+                            <a class="nav-link" href="http://{{ page.host }}/logs/tags"
                                 >Tags</a
                             >
-                            <a class="nav-link" href="#"
+                            <a class="nav-link" href="http://{{ page.host }}/about-me"
                                 >About me</a
                             >
                             <a
                                 class="nav-link"
-                                href="#"
+                                href="http://{{ page.host }}/about-website"
                                 >About website</a
                             >
-                            <a class="nav-link" href="#"
+                            <a class="nav-link" href="http://{{ page.host }}/thanks"
                                 >Thanks</a
                             >
                         </span>
                     </nav>
                     <p>
-                        <span id="version">v-dev</span> updated
-                        {# <span id="version_timestamp" class="date"
-                            >{{ site.version_timestamp | date() }}</span
-                        > #}
+                        <span id="version">{{ site.version }}</span> updated
+                        <span id="version_timestamp" class="date">{{ site.version_timestamp | date(format="%B %d, %Y %H:%M") }}</span>
                     </p>
                 </div>
 
@@ -160,7 +153,7 @@
             </main>
             <footer class="element-container">
                 <div>
-                    <p>&copy; {{ now()|date(format="Y") }} luston.neocities.org</p>
+                    <p>&copy; {{ now()|date(format="%Y") }} {{ site.title }}</p>
                     <p>
                         Made with love with
                         <a href="https://sculpin.io/" target="_blank"
